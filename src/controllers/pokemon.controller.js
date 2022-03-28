@@ -7,12 +7,18 @@ export default class PokemonController {
 
     const responsePokemon = await api.get(`/pokemon/${name}`)
       .then((response) => response.data)
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
+
+    if(!responsePokemon){
+      return response.status(404).json({ error: 'Pokemon not found!' })
+    }
 
     const data = {
       ...responsePokemon,
-      abilities: sortAbilitiesInAlphabeticalOrder(responsePokemon.abilities)
+      abilities: responsePokemon?.abilities 
+      ? sortAbilitiesInAlphabeticalOrder(responsePokemon.abilities)
+      : []
     }
-    response.send(data)
+    return response.send(data)
   }
 }
