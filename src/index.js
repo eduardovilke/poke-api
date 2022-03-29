@@ -13,4 +13,4 @@ app.use(cors())
 
 app.use('/api', router)
 
-app.listen(PORT, HOST, () => console.log("Server is running! 🚀"))
+app.listen(process.env.PORT || PORT, HOST, () => console.log("Server is running! 🚀"))
